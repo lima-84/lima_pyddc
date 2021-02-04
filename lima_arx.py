@@ -34,6 +34,7 @@ t = np.arange(1,50)
 u = np.ones(len(t))
 
 z = tf('z')
+z.dt = Ts
 G = 0.5*z/(z-0.9)/(z-0.8)
 
 y = lsim(G,u)[0]
