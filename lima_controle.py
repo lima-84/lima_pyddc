@@ -4,7 +4,9 @@ import numpy as np
 from control.lti import zero, pole
 import matplotlib.pyplot as plt
 import warnings
-from IPython.display import display, Math, Latex
+from IPython.display import display, Math
+
+# Displays zpk format for control.tf() system
 
 def lima_zpk(sys):
 
@@ -26,9 +28,12 @@ def lima_zpk(sys):
     display(Math(r'\frac{' + "{:.2f}".format(sys_gain) + str_zeros + '}{' \
          + str_poles + '}'))
 
+
 # Plots Nyquist Diagrams for the family of transfer functions gain_range*sys
 
-def lima_nyquist(sys,freq,gain_range,lim_x):
+def lima_nyquist(sys,freq,gain_range,lim_x = None):
+    
+    warnings.filterwarnings("ignore")
     plt.figure(1)    
     plt.grid()
     leg = []
@@ -36,8 +41,10 @@ def lima_nyquist(sys,freq,gain_range,lim_x):
         nyquist_plot(gain*sys,freq,arrowhead_width=0.005,arrowhead_length=0.008)
         leg.extend(['K = ' + str(gain),'_','_'])
     
-    plt.xlim(lim_x)
-    warnings.filterwarnings("ignore")
+    plt.axvline(x=0, color = 'k' , lw = 1)
+
+    if(lim_x):
+        plt.xlim(lim_x)
     plt.legend(leg)    
     warnings.filterwarnings("default")
     plt.xlabel('Real')
