@@ -31,7 +31,7 @@ def lima_arx(y1,y2,u,nze,npo,nk,Ts):
     b = zeta.T@y1
 
     # Least squares
-    theta = np.linalg.solve(A, b) # np.linalg.lstsq?
+    theta = np.linalg.lstsq(A, b, rcond = None)[0] # np.linalg.lstsq?
 
     # Defining identified transfer function
     num = np.concatenate((theta[:nze+1].T, np.zeros([npo-nze])))
